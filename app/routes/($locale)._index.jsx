@@ -28,9 +28,6 @@ export async function loader({params, context}) {
                 },
   });
 
-
-
-
   const seo = seoPayload.home();
   
   return defer({
@@ -54,7 +51,7 @@ export async function loader({params, context}) {
     ),
     secondaryHero: context.storefront.query(COLLECTION_HERO_QUERY, {
       variables: {
-        handle: 'necklaces',
+        handle: '14k-gold-designs',
         country,
         language,
       },
