@@ -22,13 +22,17 @@ export async function loader({params, context}) {
     // the the locale param must be invalid, send to the 404 page
     throw new Response(null, {status: 404});
   }
-
+ 
   const {shop, hero} = await context.storefront.query(HOMEPAGE_SEO_QUERY, {
-    variables: {handle: 'freestyle'},
+    variables: {handle: 'necklaces'
+                },
   });
 
-  const seo = seoPayload.home();
 
+
+
+  const seo = seoPayload.home();
+  
   return defer({
     shop,
     primaryHero: hero,
@@ -50,7 +54,7 @@ export async function loader({params, context}) {
     ),
     secondaryHero: context.storefront.query(COLLECTION_HERO_QUERY, {
       variables: {
-        handle: 'backcountry',
+        handle: 'necklaces',
         country,
         language,
       },
@@ -63,7 +67,7 @@ export async function loader({params, context}) {
     }),
     tertiaryHero: context.storefront.query(COLLECTION_HERO_QUERY, {
       variables: {
-        handle: 'winter-2022',
+        handle: 'Sideways',
         country,
         language,
       },
@@ -74,6 +78,7 @@ export async function loader({params, context}) {
     seo,
   });
 }
+
 
 export default function Homepage() {
   const {
@@ -90,7 +95,10 @@ export default function Homepage() {
   return (
     <>
       {primaryHero && (
+         
+         
         <Hero {...primaryHero} height="full" top loading="eager" />
+       
       )}
 
       {featuredProducts && (
@@ -219,11 +227,10 @@ export const HOMEPAGE_FEATURED_PRODUCTS_QUERY = `#graphql
 
 // @see: https://shopify.dev/api/storefront/2023-04/queries/collections
 export const FEATURED_COLLECTIONS_QUERY = `#graphql
-  query homepageFeaturedCollections($country: CountryCode, $language: LanguageCode)
+  query FeaturedCollections($country: CountryCode, $language: LanguageCode)
   @inContext(country: $country, language: $language) {
     collections(
-      first: 4,
-      sortKey: UPDATED_AT
+      first: 3
     ) {
       nodes {
         id
