@@ -19,6 +19,7 @@ import {
   Cart,
   CartLoading,
   Link,
+  IconCheck,
 } from '~/components';
 import {useIsHomePath} from '~/lib/utils';
 import {useIsHydrated} from '~/hooks/useIsHydrated';
@@ -221,9 +222,10 @@ function DesktopHeader({isHome, menu, openCart, title}) {
     >
       <div className="flex gap-12">
         <Link className="font-bold" to="/" prefetch="intent">
-          {title}
+          {/* {title} */}
+          <img style={{width:"70px", height:"70px"}} src="https://belkymood.com/cdn/shop/files/isla_500x500.37027387_ik2kq67o_431x.jpg?v=1614294555"/>
         </Link>
-        <nav className="flex gap-8">
+        <nav className="flex gap-8 items-center">
           {/* Top level menu items */}
           {(menu?.items || []).map((item) => (
             <Link
@@ -353,17 +355,17 @@ function Footer({menu}) {
     <Section
       divider={isHome ? 'none' : 'top'}
       as="footer"
+      display='flex'
       role="contentinfo"
-      className={`grid min-h-[25rem] items-start grid-flow-row w-full gap-6 py-8 px-6 md:px-8 lg:px-12 md:gap-8 lg:gap-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-${itemsCount}
-        bg-primary dark:bg-contrast dark:text-primary text-contrast overflow-hidden`}
+      className={`w-full  text-white `}
+        style={{background: "#663d65", display: "block", height:"30rem"}}
     >
       <FooterMenu menu={menu} />
-      <CountrySelector />
+      {/* <CountrySelector /> */}
       <div
         className={`self-end pt-8 opacity-50 md:col-span-2 lg:col-span-${itemsCount}`}
       >
-        &copy; {new Date().getFullYear()} / Shopify, Inc. Hydrogen is an MIT
-        Licensed Open Source project.
+        &copy; {new Date().getFullYear()} / BELKYmood Jewelry. All Rights Reserved.
       </div>
     </Section>
   );
@@ -372,7 +374,7 @@ function Footer({menu}) {
 function FooterLink({item}) {
   if (item.to.startsWith('http')) {
     return (
-      <a href={item.to} target={item.target} rel="noopener noreferrer">
+      <a href={item.to} target={item.target} >
         {item.title}
       </a>
     );
@@ -386,50 +388,43 @@ function FooterLink({item}) {
 }
 
 function FooterMenu({menu}) {
-  const styles = {
-    section: 'grid gap-4',
-    nav: 'grid gap-2 pb-6',
-  };
+  // const styles = {
+  //   section: 'grid gap-4',
+  //   nav: 'grid gap-2 pb-6',
+  // };
 
   return (
-    <>
-      {(menu?.items || []).map((item) => (
-        <section key={item.id} className={styles.section}>
-          <Disclosure>
-            {({open}) => (
-              <>
-                <Disclosure.Button className="text-left md:cursor-default">
-                  <Heading className="flex justify-between" size="lead" as="h3">
-                    {item.title}
-                    {item?.items?.length > 0 && (
-                      <span className="md:hidden">
-                        <IconCaret direction={open ? 'up' : 'down'} />
-                      </span>
-                    )}
-                  </Heading>
-                </Disclosure.Button>
-                {item?.items?.length > 0 ? (
-                  <div
-                    className={`${
-                      open ? `max-h-48 h-fit` : `max-h-0 md:max-h-fit`
-                    } overflow-hidden transition-all duration-300`}
-                  >
-                    <Suspense data-comment="This suspense fixes a hydration bug in Disclosure.Panel with static prop">
-                      <Disclosure.Panel static>
-                        <nav className={styles.nav}>
-                          {item.items.map((subItem) => (
-                            <FooterLink key={subItem.id} item={subItem} />
-                          ))}
-                        </nav>
-                      </Disclosure.Panel>
-                    </Suspense>
-                  </div>
-                ) : null}
-              </>
-            )}
-          </Disclosure>
-        </section>
-      ))}
-    </>
-  );
+    <section className="w-full h-80 mb-6">
+    <div className="w-full h-auto flex mb-6">
+      <h3 className="text-white">Newsletter Section</h3>
+    </div>
+    <div className="w-full flex text-white">
+      <div className="flex-1 " >
+      <img style={{width:"150px", height:"150p"}} src="https://belkymood.com/cdn/shop/files/isla_500x500.37027387_ik2kq67o_431x.jpg?v=1614294555"/>
+      <div>
+      
+      </div>
+      </div>
+      <div className="flex-1">
+        <p className='mb-3'><b >LINKS</b></p>
+         <ul>
+          {menu.items.map(item=>(
+            <li key={item.id} className='mb-3'>
+              <FooterLink item={item}/>
+            </li>
+          ))}
+         </ul>
+      </div>
+      <div className="flex-1 text-sm">
+        <p className='mb-3'><b >Contact Us</b></p>
+         <ul>
+          <li><IconCheck className="inline-block mr-2 mb-3"/>1121 E Spring Creek Pkwy Ste 110-154 Plano, TX 75074 </li>
+          <li><IconCheck className="inline-block mr-2 mb-3"/>Phone:+1 972-774-1001  </li>
+          <li><IconCheck className="inline-block mr-2 mb-3"/>Email:info@belkymood.com </li>
+          <li><IconCheck className="inline-block mr-2 mb-3"/>10.00AM - 6.00PM </li>
+         </ul>
+      </div>
+    </div>
+</section>
+  )
 }

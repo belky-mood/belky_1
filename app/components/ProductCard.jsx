@@ -59,13 +59,21 @@ export function ProductCard({
                 loading={loading}
               />
             )}
-            <Text
-              as="label"
-              size="fine"
-              className="absolute top-0 right-0 m-4 text-right text-notice"
+            {/* Badge styling */}
+            <span
+              className="absolute top-2 right-2 text-white"
+              style={{
+                width: '55px',
+                height: '30px',
+                borderRadius: '14px',
+                background: '#af64af',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
             >
               {cardLabel}
-            </Text>
+            </span>
           </div>
           <div className="grid gap-1">
             <Text
